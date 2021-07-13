@@ -3,9 +3,6 @@ function updatePosition(pos) {
 }
 
 function newPosition(prevTodoPosition, nextTodoPosition) {
-  console.log(prevTodoPosition)
-  console.log(nextTodoPosition)
-
   if (prevTodoPosition) {
     let newPos = updatePosition(prevTodoPosition);
     if (!nextTodoPosition || newPos < nextTodoPosition) {
@@ -17,9 +14,8 @@ function newPosition(prevTodoPosition, nextTodoPosition) {
     return newPos;
   };
   if (!prevTodoPosition) {
-    console.log(nextTodoPosition)
     return nextTodoPosition.slice(0, nextTodoPosition.length - 1);
   }
 }
 
-module.exports = { newPosition: newPosition };
+module.exports = { newPosition };

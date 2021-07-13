@@ -16,6 +16,7 @@ module.exports = {
     database: 'todos_test',
     host: DB_HOST,
     dialect: 'postgres',
+    logging: false,
   },
   production: {
     username: DB_USERNAME,

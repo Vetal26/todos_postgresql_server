@@ -1,18 +1,21 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const http = require('http');
 
 const app = express();
-const port = process.env.PORT;
+const server = http.createServer(app);
 const models = require('./models');
 
 const { Todo } = models;
 const { newPosition } = require('./utils/utils');
 
+const port = process.env.PORT;
+
 app.use(cors());
 app.use(bodyParser.json());
 
-app.get('/todos', async (req, res) => {
+app.get('/todos', (req, res) => {
   Todo.findAll({
     order: [['position', 'ASC']],
   })
@@ -60,12 +63,14 @@ app.delete('/todos', (req, res) => {
 });
 
 app.patch('/todos', (req, res) => {
-  const filter = req.body.id ? { id: req.body.id } : { isDone: !req.body.isDone };
+  const filter = req.body.id
+    ? { id: req.body.id }
+    : { isDone: !req.body.isDone };
 
   Todo.update({ isDone: req.body.isDone }, { where: filter })
     .then((num) => {
-      if (num === 1) {
-        res.status(200).send();
+      if (num) {
+        res.status(200).send(num);
       } else {
         res.status(404).send({ message: "Todo doesn't exist!" });
       }
@@ -83,7 +88,7 @@ app.patch('/dnd/:id', (req, res) => {
     },
   )
     .then((num) => {
-      if (num === 1) {
+      if (num[0] === 1) {
         res.status(200).send();
       } else {
         res.status(404).send({ message: "Todo doesn't exist!" });
@@ -92,6 +97,8 @@ app.patch('/dnd/:id', (req, res) => {
     .catch((err) => res.status(500).send({ message: err.message }));
 });
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`App is listening at http://localhost:${port}`);
 });
+
+module.exports = server;
