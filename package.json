@@ -5,14 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "nodemon -r dotenv/config index.js",
-    "db:create": "sequelize-cli db:create",
-    "db:migrate": "sequelize-cli db:migrate",
+    "db:create": "sequelize-cli db:create && sequelize-cli --env test db:create",
+    "db:migrate": "sequelize-cli db:migrate && sequelize-cli --env test db:migrate",
     "db:g:migration": "sequelize-cli migration:generate --name",
     "db:g:seed": "sequelize-cli seed:generate --name",
     "db:migrate:undo": "sequelize-cli db:migrate:undo",
-    "db:create:test": "sequelize-cli --env test db:create",
-    "db:migrate:test": "sequelize-cli --env test db:migrate",
-    "db:seeds:test": "sequelize-cli --env test db:seed:all",
     "test": "cross-env NODE_ENV=test mocha --exit"
   },
   "repository": {
@@ -43,7 +40,6 @@
     "eslint-plugin-import": "^2.23.4",
     "mocha": "^9.0.2",
     "nodemon": "^2.0.9",
-    "sequelize-cli": "^6.2.0",
-    "sinon": "^11.1.1"
+    "sequelize-cli": "^6.2.0"
   }
 }

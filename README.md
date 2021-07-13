@@ -14,6 +14,8 @@ The application uses the following platforms, frameworks and libraries:
 - sequelize
 - postgreSQL
 - cors
+- mocha
+- chai
 
 ## Getting Started
 Requires [Node.js](https://nodejs.org/) v14.17.0 to run.
@@ -48,6 +50,12 @@ npm run db:migrate
 5. Start the server
 ```sh
 npm run start:dev
+```
+### Test
+To run the tests, you need to run the following command:
+
+```sh
+npm run test
 ```
 
 ## License
